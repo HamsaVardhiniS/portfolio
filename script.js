@@ -14,7 +14,7 @@ revealEls.forEach(el => revealObserver.observe(el));
 const phrases = [
   "Building reliable ML systems",
   "Bridging math and code",
-  "Currently: fetal brain imaging @ IIITB",
+  "Currently: Research Intern @ IIITB",
   "Turning signals into decisions"
 ];
 const typedEl = document.getElementById('typedText');
@@ -43,34 +43,6 @@ function typeLoop() {
   setTimeout(typeLoop, deleting ? 35 : 55);
 }
 setTimeout(typeLoop, 1200);
-
-// ===== ANIMATED STAT COUNTERS =====
-const statEls = document.querySelectorAll('.stat-num');
-const statObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      animateCount(entry.target);
-      statObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.5 });
-statEls.forEach(el => statObserver.observe(el));
-
-function animateCount(el) {
-  const target = parseFloat(el.dataset.count);
-  const isDecimal = el.dataset.decimal === 'true';
-  const duration = 1200;
-  const start = performance.now();
-
-  function tick(now) {
-    const progress = Math.min((now - start) / duration, 1);
-    const value = target * progress;
-    el.textContent = isDecimal ? value.toFixed(2) : Math.floor(value);
-    if (progress < 1) requestAnimationFrame(tick);
-    else el.textContent = isDecimal ? target.toFixed(2) : target;
-  }
-  requestAnimationFrame(tick);
-}
 
 // ===== CURSOR-AWARE BACKGROUND BLOB =====
 const blob = document.getElementById('bgBlob');
